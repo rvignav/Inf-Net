@@ -54,11 +54,11 @@ Used to generate chest X-ray training data for segmentation of COVID-19 lung les
 2. Test
     
     - When training is completed, the weights will be saved in `./Snapshots/save_weights/Inf-Net/`. 
-    You can also directly download the pre-trained weights from [Google Drive](https://drive.google.com/open?id=19p_G8NS4NwF4pZOEOX3w06ZLVh0rj3VW).
+    Pre-trained weights are available in the `Snapshots` folder, and can be downloaded.
     
-    - Assign the path `--pth_path` of trained weights and `--save_path` of results save and in `MyTest_LungInf.py`.
+    - If using different directories than those provided, assign the path to the trained weights with `--pth_path` and the output directory with `--save_path`.
     
-    - Just run it and results will be saved in `./Results/Lung infection segmentation/Inf-Net`
+    - Run `python MyTest_LungInf.py`.
 
 ### 2.3. Training Set
 
@@ -85,9 +85,9 @@ results, where neither GGO and consolidation infections can be accurately segmen
 
 Overall results can be downloaded from this [link](http://dpfan.net/wp-content/uploads/COVID-SemiSeg-Results.zip).
 
-Lung infection segmentation results can be downloaded from this [link](http://dpfan.net/wp-content/uploads/Lung-infection-segmentation.zip)
+Lung infection segmentation results can be downloaded from this [link](http://dpfan.net/wp-content/uploads/Lung-infection-segmentation.zip).
 
-Multi-class lung infection segmentation can be downloaded from this [link](http://dpfan.net/wp-content/uploads/Multi-class-lung-infection-segmentation.zip)
+Multi-class lung infection segmentation can be downloaded from this [link](http://dpfan.net/wp-content/uploads/Multi-class-lung-infection-segmentation.zip).
 
 ## 4. Visualization Results:
 
