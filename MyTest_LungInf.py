@@ -16,16 +16,19 @@ import argparse
 from scipy import misc
 from Code.model_lung_infection.InfNet_Res2Net import Inf_Net as Network
 from Code.utils.dataloader_LungInf import test_dataset
-
+import glob
+import sys
+from PIL import Image
 
 def inference():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--testsize', type=int, default=352, help='testing size')
-    parser.add_argument('--data_path', type=str, default='./Dataset/TestingSet/LungInfection-Test/',
+    parser.add_argument('--testsize', type=int,
+                        default=352, help='testing size')
+    parser.add_argument('--data_path', type=str, default='./Dataset/NCP/NCP-1/',
                         help='Path to test data')
     parser.add_argument('--pth_path', type=str, default='./Snapshots/save_weights/Inf-Net/Inf-Net-100.pth',
                         help='Path to weights file. If `semi-sup`, edit it to `Semi-Inf-Net/Semi-Inf-Net-100.pth`')
-    parser.add_argument('--save_path', type=str, default='./Results/Lung infection segmentation/Inf-Net/',
+    parser.add_argument('--save_path', type=str, default='./Results/',
                         help='Path to save the predictions. if `semi-sup`, edit it to `Semi-Inf-Net`')
     opt = parser.parse_args()
 
@@ -37,28 +40,45 @@ def inference():
 
     model = Network()
     # model = torch.nn.DataParallel(model, device_ids=[0, 1]) # uncomment it if you have multiply GPUs.
-    model.load_state_dict(torch.load(opt.pth_path, map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load(
+        opt.pth_path, map_location=torch.device('cpu')))
     # model.cuda()
     model.eval()
 
-    image_root = '{}/Imgs/'.format(opt.data_path)
-    # gt_root = '{}/GT/'.format(opt.data_path)
-    test_loader = test_dataset(image_root, opt.testsize)
-    os.makedirs(opt.save_path, exist_ok=True)
+    subs = []
+    folders = glob.glob(opt.data_path + '*')
+    for folder in folders:
+        s = glob.glob(folder + '/*')
+        for item in s:
+            subs.append(item + '/')
 
-    for i in range(test_loader.size):
-        image, name = test_loader.load_data()
+    count = 0
+    for image_root in subs:
+        test_loader = test_dataset(image_root, opt.testsize)
+        os.makedirs(opt.save_path, exist_ok=True)
 
-        # image = image.cuda()
+        path = opt.save_path + 'scans/Volume' + str(count+42)
+        if not os.path.exists(path):
+            os.makedirs(path)
+            images = glob.glob(image_root + '/*')
+            for i in range(len(images)):
+                im = Image.open(images[i])
+                im.save(path + '/' + str(i) + '.jpg')
 
-        lateral_map_5, lateral_map_4, lateral_map_3, lateral_map_2, lateral_edge = model(image)
+        for i in range(test_loader.size):
+            image, name = test_loader.load_data()
+            lateral_map_5, lateral_map_4, lateral_map_3, lateral_map_2, lateral_edge = model(image)
 
-        res = lateral_map_2
-        # res = F.upsample(res, size=(ori_size[1],ori_size[0]), mode='bilinear', align_corners=False)
-        res = res.sigmoid().data.cpu().numpy().squeeze()
-        res = (res - res.min()) / (res.max() - res.min() + 1e-8)
-        imageio.imwrite(opt.save_path + name, res)
-
+            res = lateral_map_2
+            # res = F.upsample(res, size=(ori_size[1],ori_size[0]), mode='bilinear', align_corners=False)
+            res = res.sigmoid().data.cpu().numpy().squeeze()
+            res = (res - res.min()) / (res.max() - res.min() + 1e-8)
+            if not os.path.exists(opt.save_path + 'masks/Volume' + str(count+42)):
+                os.makedirs(opt.save_path + 'masks/Volume' + str(count+42))
+            imageio.imwrite(opt.save_path + 'masks/Volume' + str(count+42) + '/' + name, res)
+        
+        count += 1
+        
     print('Test Done!')
 
 
