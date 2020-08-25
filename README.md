@@ -2,43 +2,6 @@
 
 Used to generate chest X-ray training data for segmentation of COVID-19 lung lesions on annotated X-rays as outlined in [this repository](https://github.com/rvignav/CT2Xray).
 
-### Table of Contents
-
-- [Inf-Net: Automatic COVID-19 Lung Infection Segmentation from CT Images](#inf-net--automatic-covid-19-lung-infection-segmentation-from-ct-scans)
-  * [0. Preface](#0-preface)
-    + [0.1. :fire: NEWS :fire:](#01--fire--news--fire-)
-    + [0.2. Table of Contents](#02-table-of-contents)
-  * [1. Introduction](#1-introduction)
-    + [1.1. Task Description](#11-task-description)
-  * [2. Proposed Methods](#2-proposed-methods)
-    + [2.1. Inf-Net](#21-inf-net)
-      - [2.1.1 Overview](#211-overview)
-      - [2.1.2. Usage](#212-usage)
-    + [2.2. Semi-Inf-Net](#22-semi-inf-net)
-      - [2.2.1. Overview](#221-overview)
-      - [2.2.2. Usage](#222-usage)
-    + [2.3. Semi-Inf-Net + Multi-class UNet](#23-semi-inf-net---multi-class-unet)
-      - [2.3.1. Overview](#231-overview)
-      - [2.3.2. Usage](#232-usage)
-  * [3. Evaluation Toolbox](#3-evaluation-toolbox)
-    + [3.1. Introduction](#31-introduction)
-    + [3.2. Usage](#32-usage)
-  * [4. COVID-SemiSeg Dataset](#4-covid-semiseg-dataset)
-    + [3.1. Training set](#31-training-set)
-    + [3.2. Testing set](#32-testing-set)
-  * [4. Results](#4-results)
-    + [4.1. Download link:](#41-download-link-)
-  * [5. Visualization Results:](#5-visualization-results-)
-  * [6. Paper list of COVID-19 related (Update continue)](#6-paper-list-of-covid-19-related--update-continue-)
-  * [7. Manuscript](#7-manuscript)
-  * [8. Citation](#8-citation)
-  * [9. LICENSE](#9-license)
-  * [10. Acknowledgements](#10-acknowledgements)
-  * [11. TODO LIST](#11-todo-list)
-  * [12. FAQ](#12-faq)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 ## 1. Introduction
 
 ### 1.1. Task Descriptions
