@@ -89,7 +89,7 @@ Lung infection segmentation results can be downloaded from this [link](http://dp
 
 Multi-class lung infection segmentation can be downloaded from this [link](http://dpfan.net/wp-content/uploads/Multi-class-lung-infection-segmentation.zip).
 
-## 4. Visualization Results:
+## 4. Visualization Results
 
 <p align="center">
     <img src="http://dpfan.net/wp-content/uploads/InfectionSeg.png"/> <br />
