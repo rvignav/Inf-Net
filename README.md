@@ -1,40 +1,8 @@
 # Inf-Net: Automatic COVID-19 Lung Infection Segmentation from CT Images
 
-> **Authors:** 
-> [Deng-Ping Fan](https://dpfan.net/), 
-> [Tao Zhou](https://taozh2017.github.io/), 
-> [Ge-Peng Ji](https://scholar.google.com/citations?user=oaxKYKUAAAAJ&hl=en), 
-> [Yi Zhou](https://scholar.google.com/citations?hl=zh-CN&user=EnDCJKMAAAAJ), 
-> [Geng Chen](https://www.researchgate.net/profile/Geng_Chen13), 
-> [Huazhu Fu](http://hzfu.github.io/), 
-> [Jianbing Shen](http://iitlab.bit.edu.cn/mcislab/~shenjianbing), and 
-> [Ling Shao](http://www.inceptioniai.org/).
+Used to generate chest X-ray training data for segmentation of COVID-19 lung lesions on annotated X-rays as outlined in [this repository](https://github.com/rvignav/CT2Xray).
 
-## 0. Preface
-
-- This repository provides code for "_**Inf-Net: Automatic COVID-19 Lung Infection Segmentation from CT Images**_" TMI-2020. 
-([arXiv Pre-print](https://arxiv.org/abs/2004.14133) & [medrXiv](https://www.medrxiv.org/content/10.1101/2020.04.22.20074948v1))
-
-- If you have any questions about our paper, feel free to contact us. And if you are using COVID-SemiSeg Dataset, 
-Inf-Net or evaluation toolbox for your research, please cite this paper ([BibTeX](#8-citation)).
-
-- We elaborately collect COVID-19 imaging-based AI research papers and datasets [awesome-list](https://github.com/HzFu/COVID19_imaging_AI_paper_list).
-
-### 0.1. :fire: NEWS :fire:
-- [2020/08/15] Updating the equation (2) in our manuscript. <br>
-  R_i = C(f_i, Dow(e_att)) * A_i -> R_i = C(f_i * A_i, Dow(e_{att}));
-
-- [2020/08/15] Optimizing the testing code, now you can test the custom data without `gt_path`
-
-- [2020/05/15] Our paper is accepted for publication in IEEE TMI
-
-- [2020/05/13] :boom: Upload pre-trained weights. (Uploaded by Ge-Peng Ji)
-
-- [2020/05/12] :boom: Release training/testing/evaluation code. (Updated by Ge-Peng Ji)
-
-- [2020/05/01] Create repository.
-
-### 0.2. Table of Contents
+### Table of Contents
 
 - [Inf-Net: Automatic COVID-19 Lung Infection Segmentation from CT Images](#inf-net--automatic-covid-19-lung-infection-segmentation-from-ct-scans)
   * [0. Preface](#0-preface)
@@ -311,23 +279,8 @@ Multi-class lung infection segmentation can be downloaded from this [link](http:
     </em>
 </p>
 
-## 6. Paper list of COVID-19 related (Update continue)
 
-> Ori GitHub Link: https://github.com/HzFu/COVID19_imaging_AI_paper_list
-
-<p align="center">
-    <img src="http://dpfan.net/wp-content/uploads/paper-list-cover.png"/> <br />
-    <em> 
-    Figure 6. This is a collection of COVID-19 imaging-based AI research papers and datasets.
-    </em>
-</p>
-
-## 7. Manuscript
-https://arxiv.org/pdf/2004.14133.pdf
-
-## 8. Citation
-
-Please cite our paper if you find the work useful: 
+## 6. Citation
 
 	@article{fan2020inf,
   	title={Inf-Net: Automatic COVID-19 Lung Infection Segmentation from CT Images},
@@ -335,50 +288,3 @@ Please cite our paper if you find the work useful:
   	journal={IEEE TMI},
   	year={2020}
 	}
- 
-## 9. LICENSE
-
-- The **COVID-SemiSeg Dataset** is made available for non-commercial purposes only.
-
-- You will not, directly or indirectly, reproduce, use, or convey the **COVID-SemiSeg Dataset** 
-or any Content, or any work product or data derived therefrom, for commercial purposes.
-
-## 10. Acknowledgements
- 
-We would like to thank the whole organizing committee for considering the publication of our paper in this special issue (Special Issue on Imaging-Based Diagnosis of COVID-19) of IEEE Transactions on Medical Imaging. More papers refer to [Link](https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=9153182).
-
-## 11. TODO LIST
-
-> If you want to improve the usability of code or any other pieces of advice, please feel free to contact me directly ([E-mail](gepengai.ji@gmail.com)).
-
-- [ ] Support `NVIDIA APEX` training.
-
-- [ ] Support different backbones (
-VGGNet (done), 
-ResNet, 
-[ResNeXt](https://github.com/facebookresearch/ResNeXt)
-[Res2Net (done)](https://github.com/Res2Net/Res2Net-PretrainedModels), 
-[iResNet](https://github.com/iduta/iresnet), 
-and 
-[ResNeSt](https://github.com/zhanghang1989/ResNeSt) 
-etc.)
-
-- [ ] Support distributed training.
-
-- [ ] Support lightweight architecture and faster inference, like MobileNet, SqueezeNet.
-
-- [ ] Support distributed training
-
-- [ ] Add more comprehensive competitors.
-
-## 12. FAQ
-
-1. If the image cannot be loaded in the page (mostly in the domestic network situations).
-
-    [Solution Link](https://blog.csdn.net/weixin_42128813/article/details/102915578)
-
-2. I tested the U-Net, however, the Dice score is different from the score in TABLE II (Page 8 on our manuscript)? <br>
-   Note that, the our Dice score is the mean dice score rather than the max Dice score. You can use our evaluation tool box [Google Drive](https://drive.google.com/open?id=1BGUUmrRPOWPxdxnawFnG9TVZd8rwLqCF). 
-   The training set of each compared model (e.g., U-Net, Attention-UNet, Gated-UNet, Dense-UNet, U-Net++, Inf-Net (ours)) is the 48 images rather than 48 image+1600 images.
-
-**[⬆ back to top](#0-preface)**
