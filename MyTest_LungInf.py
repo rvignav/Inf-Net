@@ -10,17 +10,22 @@ from Code.utils.dataloader_LungInf import test_dataset
 import glob
 import sys
 from PIL import Image
+import re
+
+def sort_list(l):
+    convert = lambda text: int(text) if text.isdigit() else text
+    alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
+    return sorted(l, key = alphanum_key)
 
 def inference():
-    print("Starting data generation for NCP-2")
     parser = argparse.ArgumentParser()
     parser.add_argument('--testsize', type=int,
                         default=352, help='testing size')
-    parser.add_argument('--data_path', type=str, default='./Dataset/',
+    parser.add_argument('--data_path', type=str, default='/Users/vignavramesh/Documents/CT_Scans/',
                         help='Path to test data')
     parser.add_argument('--pth_path', type=str, default='./Snapshots/save_weights/Inf-Net/Inf-Net-100.pth',
                         help='Path to weights file. If `semi-sup`, edit it to `Semi-Inf-Net/Semi-Inf-Net-100.pth`')
-    parser.add_argument('--save_path', type=str, default='./Results/',
+    parser.add_argument('--save_path', type=str, default='/Users/vignavramesh/Documents/CT_Masks/',
                         help='Path to save the predictions. if `semi-sup`, edit it to `Semi-Inf-Net`')
     opt = parser.parse_args()
 
@@ -36,8 +41,13 @@ def inference():
     model.eval()
 
     count = 0
-    for image_root in glob.glob(opt.data_path + '*'): #subs
+
+    list = glob.glob(opt.data_path + '*')
+    list = sort_list(list)
+
+    for image_root in list: #subs
         count = image_root[(image_root.rindex('Volume') + 6):]
+        image_root += '/'
         test_loader = test_dataset(image_root, opt.testsize)
         os.makedirs(opt.save_path, exist_ok=True)
 
@@ -48,9 +58,10 @@ def inference():
             res = lateral_map_2
             res = res.sigmoid().data.cpu().numpy().squeeze()
             res = (res - res.min()) / (res.max() - res.min() + 1e-8)
-            if not os.path.exists(opt.save_path + 'masks/Volume' + str(count+42)):
-                os.makedirs(opt.save_path + 'masks/Volume' + str(count+42))
-            imageio.imwrite(opt.save_path + 'masks/Volume' + str(count+42) + '/' + name, res)
+            string = opt.save_path + 'Volume' + str(count)  
+            if not os.path.exists(string):
+                os.makedirs(string)
+            imageio.imwrite(string + '/' + name, res)
                 
     print('Test Done!')
 
